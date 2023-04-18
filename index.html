@@ -99,6 +99,30 @@
 
   // 处理用户输入
   function handleInput(event) {
+    // 获取canvas元素
+const canvas = document.getElementById("canvas");
+
+// 获取canvas的上下文对象
+const ctx = canvas.getContext("2d");
+
+// 触摸事件处理程序
+canvas.addEventListener("touchstart", function(event) {
+  // 获取第一个手指的位置
+  const x = event.touches[0].pageX;
+  const y = event.touches[0].pageY;
+
+  // 根据手指位置判断应该向哪个方向移动
+  if (x < canvas.width / 2 && Math.abs(y - canvas.height / 2) < x - canvas.width / 2) {
+    direction = "left";
+  } else if (x > canvas.width / 2 && Math.abs(y - canvas.height / 2) < canvas.width / 2 - x) {
+    direction = "right";
+  } else if (y < canvas.height / 2 && Math.abs(x - canvas.width / 2) < y - canvas.height / 2) {
+    direction = "up";
+  } else if (y > canvas.height / 2 && Math.abs(x - canvas.width / 2) < canvas.height / 2 - y) {
+    direction = "down";
+  }
+});
+
     // 根据按键更新方向
     switch (event.code) {
       case "ArrowUp":
